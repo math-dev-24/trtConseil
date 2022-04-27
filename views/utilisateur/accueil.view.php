@@ -1,5 +1,2 @@
-<ol class="breadcrumb">
-    <li class="breadcrumb-item active">Accueil</li>
-</ol>
-
 <h1>Bienvenue sur le site de Recrutement</h1>
+<div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, a, animi nemo odit eum pariatur vitae temporibus, sequi eius sapiente quisquam ad incidunt nisi expedita facilis. Assumenda repellendus a maiores!</div>

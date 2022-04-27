@@ -21,6 +21,7 @@ try {
 
 		switch ($url[0]) {
 			case "accueil":
+				$_SESSION['page'] = "accueil";
 				$userController->afficherAccueil();
 				break;
 
@@ -76,6 +77,7 @@ try {
 			case "postuler":
 				if(mon_grade() == "Candidat"){
 					if(isset($url[1])){
+						$_SESSION['page'] = "postuler";
 						$userController->postuler_offre($url[1]);
 					}
 				}else{
@@ -84,6 +86,7 @@ try {
 				}
 			break;
 			case "candidatures":
+				$_SESSION['page'] = "candidatures";
 				if (mon_grade() != "Recruteur" && mon_grade() != "Candidat"){
 					if(isset($url['2']) && isset($url['3'])){
 						$userController->approuver_candidature(dataSecure($url["2"]),dataSecure($url['3']));
@@ -95,7 +98,8 @@ try {
 					header("location: " . URL . "accueil");
 				}
 			break;
-			case "gestionOffres" :
+			case "gestionOffres":
+				$_SESSION['page'] = "gestionOffres";
 				if(mon_grade() != "Recruteur" && mon_grade() != "Candidat"){
 					if(!isset($url[1])){
 						$userController->afficher_gestion_offre();
@@ -112,37 +116,43 @@ try {
 			break;
 
 			case "profil" :
-				if(empty($url[1])){
-					$userController->afficher_profil();
-				}else{
-					$email = $_SESSION['email'];
-					if($url[1] == "nom"){
-						$userController->modifcation_element($email, $url[1], dataSecure($_POST['nom']));
-					}else if($url[1] == "prenom"){
-						$userController->modifcation_element($email, $url[1] , dataSecure($_POST['prenom']));
-					}else if($url[1] == "password"){
-						$userController->modifcation_element($email, $url[1], cryptageMdp(dataSecure($_POST['pass'])));
-					}else if($url[1] == "adresse"){
-						$userController->modifcation_element($email, $url[1], dataSecure($_POST['adresse']));
-					}else if($url[1] == "nomEntreprise"){
-						$userController->modifcation_element($email,$url[1],dataSecure($_POST['nomEntreprise']));
-					}else if($url[1] == "cv"){
-						if(($_FILES['cv']['size']/1000000) < 5){
-							$information = pathinfo($_FILES['cv']['name']);
-							$extension = $information['extension'];
-							if($extension == "pdf"){
-								$adresse ="cv/CV-".$_SESSION['nom']."-".$_SESSION['prenom']."-".time().".pdf";
-								move_uploaded_file($_FILES['cv']['tmp_name'],$adresse);
-								$userController->ajouter_cv($adresse);
-							}else{
-								Toolbox::ajouterMessageAlerte("Extension .pdf requis",Toolbox::COULEUR_ORANGE);
+				$_SESSION['page'] = "profil";
+				if(est_connecter()){
+					if(empty($url[1])){
+						$userController->afficher_profil();
+					}else{
+						$email = $_SESSION['email'];
+						if($url[1] == "nom"){
+							$userController->modifcation_element($email, $url[1], dataSecure($_POST['nom']));
+						}else if($url[1] == "prenom"){
+							$userController->modifcation_element($email, $url[1] , dataSecure($_POST['prenom']));
+						}else if($url[1] == "password"){
+							$userController->modifcation_element($email, $url[1], cryptageMdp(dataSecure($_POST['pass'])));
+						}else if($url[1] == "adresse"){
+							$userController->modifcation_element($email, $url[1], dataSecure($_POST['adresse']));
+						}else if($url[1] == "nomEntreprise"){
+							$userController->modifcation_element($email,$url[1],dataSecure($_POST['nomEntreprise']));
+						}else if($url[1] == "cv"){
+							if(($_FILES['cv']['size']/1000000) < 5){
+								$information = pathinfo($_FILES['cv']['name']);
+								$extension = $information['extension'];
+								if($extension == "pdf"){
+									$adresse ="cv/CV-".$_SESSION['nom']."-".$_SESSION['prenom']."-".time().".pdf";
+									move_uploaded_file($_FILES['cv']['tmp_name'],$adresse);
+									$userController->ajouter_cv($adresse);
+								}else{
+									Toolbox::ajouterMessageAlerte("Extension .pdf requis",Toolbox::COULEUR_ORANGE);
+									header("location: ".URL."profil");
+								}
+							}else {
+								Toolbox::ajouterMessageAlerte("5 Mo maximum",Toolbox::COULEUR_ROUGE);
 								header("location: ".URL."profil");
 							}
-						}else {
-							Toolbox::ajouterMessageAlerte("5 Mo maximum",Toolbox::COULEUR_ROUGE);
-							header("location: ".URL."profil");
 						}
 					}
+				}else{
+					Toolbox::ajouterMessageAlerte("Vous devez être connecté",Toolbox::COULEUR_ORANGE);
+					header('location: '.URL."accueil");
 				}
 			break;
 			case "recrutement" :

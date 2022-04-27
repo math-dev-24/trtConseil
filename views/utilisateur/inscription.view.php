@@ -1,8 +1,3 @@
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item active">Inscription</li>
-</ol>
-
 <form action="<?= URL ?>goInscription" method="POST" class="container">
     <table class="table table-hover">
         <tr>

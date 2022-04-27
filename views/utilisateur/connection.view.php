@@ -1,8 +1,3 @@
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item active">Connection</li>
-</ol>
-
 <form action="<?= URL ?>goConnection" method="POST">
     <table class="table table-hover">
         <tr>
