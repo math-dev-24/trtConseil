@@ -1,8 +1,3 @@
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item active">Utilisateurs</li>
-</ol>
-
 <div>
     <table class="table table-hover text-center table-light">
         <tr>
@@ -53,7 +48,7 @@
                     </form>
                 </td>
                 <td>
-                    <form action="<?= URL ?>admin/users/supprimer/<?= $utilisateur['id'] ?>">
+                    <form action="<?= URL ?>gestionUsers/supprimer/<?= $utilisateur['id'] ?>">
                         <button class="btn btn-danger">Supprimer</button>
                     </form>
                 </td>

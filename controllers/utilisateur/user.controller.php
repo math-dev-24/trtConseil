@@ -88,10 +88,10 @@ class UtilisateurController extends MainController{
     public function ajouter_annonce($intitule , $lieuDeTravail , $description){
         if($this->offreManager->add_offre($intitule, $lieuDeTravail , $description)){
             Toolbox::ajouterMessageAlerte("Annonce Ajoutée",Toolbox::COULEUR_VERTE);
-            header('location: '.URL."recrutement/annonces");
+            header('location: '.URL. "annoncesDepose");
         }else{
             Toolbox::ajouterMessageAlerte("Erreur lors de l'ajout", Toolbox::COULEUR_ROUGE);
-            header('location: ' . URL . "recrutement/annonces");
+            header('location: '.URL."annoncesDepose");
         }
     }
     public function afficher_candidatures(){

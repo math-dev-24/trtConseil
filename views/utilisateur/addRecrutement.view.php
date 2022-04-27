@@ -13,5 +13,5 @@
             <td><textarea class="form-control" name="description" id="description" cols="30" rows="3"></textarea></td>
         </tr>
     </table>
-    <button class="btn btn-outline-success w-100 m-auto">Ajoutez</button>
+    <button class="btn btn-success w-100 m-auto">Ajoutez</button>
 </form>

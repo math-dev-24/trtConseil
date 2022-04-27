@@ -1,10 +1,3 @@
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item active">Consultants</li>
-</ol>
-
-
-
 <div>
     <table class="table table-hover table-light">
 
@@ -22,6 +15,6 @@
 
     </table>
     
-    <a href="<?= URL ?>admin/consultants/ajout" class="btn btn-success w-100">Ajoutez</a>
+    <a href="<?= URL ?>ajoutConsultant" class="btn btn-success w-100">Ajoutez</a>
 </div>
 

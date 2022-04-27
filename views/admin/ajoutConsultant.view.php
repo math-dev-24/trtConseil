@@ -1,6 +1,6 @@
 <div class="mt-4">
     <h3>Ajouter un consultants :</h3>
-    <form action="<?= URL ?>admin/addConsultant" method="POST">
+    <form action="<?= URL ?>addConsultant" method="POST">
         <table class="table table-hover">
             <tr>
                 <td class="text-end">Nom :</td>

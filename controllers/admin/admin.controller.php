@@ -45,12 +45,12 @@ class AdministrateurController extends MainController
     public function delete_consultant($id){
         $this->utilisateurManager->delete_by_id($id);
         Toolbox::ajouterMessageAlerte("Consultant supprimé ", Toolbox::COULEUR_VERTE);
-        header("location: ".URL."admin/consultants");
+        header("location: ".URL."gestionConsultants");
     }
     public function supprimer_user($id){
         $this->utilisateurManager->delete_by_id($id);
         Toolbox::ajouterMessageAlerte("Utilisateur supprimé",Toolbox::COULEUR_VERTE);
-        header('location: '.URL."admin/users");
+        header('location: '.URL."gestionUsers");
     }
 
     public function validation_inscription_consultant($nom,$prenom,$mail, $pass)
@@ -58,18 +58,18 @@ class AdministrateurController extends MainController
         if ($this->utilisateurManager->verifEmailDispo($mail)) {
             if ($this->utilisateurManager->inscriptionUser($nom , $prenom,$mail, $pass, 3)) {
                 Toolbox::ajouterMessageAlerte("Consultant ajouté ", Toolbox::COULEUR_VERTE);
-                header("location: " . URL . "admin/consultants");
+                header("location: " . URL . "gestionConsultants");
             }
         } else {
             Toolbox::ajouterMessageAlerte('Email déjà utilisé !', Toolbox::COULEUR_ROUGE);
-            header('Location: ' . URL . "admin/ajouterConsultant");
+            header('Location: ' . URL . "ajoutConsultant");
         }
     }
 
     public function approuver_utilisateur($email){
         $this->utilisateurManager->approuver_by_email($email);
         Toolbox::ajouterMessageAlerte("Nouvelle utilisateur approuvé",Toolbox::COULEUR_VERTE);
-        header('location: '.URL."admin/users");
+        header('location: '.URL."gestionUsers");
 
     }
     public function modifier_type($id, $email)
@@ -77,11 +77,11 @@ class AdministrateurController extends MainController
         $user = $this->utilisateurManager->getInformationUser($_SESSION['email']);
         if($user['idType'] == $id){
             Toolbox::ajouterMessageAlerte("Grade déjà en possession",Toolbox::COULEUR_ORANGE);
-            header("location: ".URL."admin/users");
+            header("location: ".URL. "gestionUsers");
         }else{
             $this->utilisateurManager->modification_Bdd("idType", $id, $email);
             Toolbox::ajouterMessageAlerte("Grade modifié",Toolbox::COULEUR_VERTE);
-            header('location: '.URL."admin./users");
+            header('location: '.URL. "gestionUsers");
         }
     }
 }

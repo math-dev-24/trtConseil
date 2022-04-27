@@ -57,25 +57,25 @@
 
                 <?php if (mon_grade() == "Administrateur") { ?>
                     <li class="sub-menu">
-                        <a href="javascript:;">
+                        <a href="javascript:;" class="<?php if ($_SESSION['page'] == "gestionConsultants" || $_SESSION['page'] == "gestionUsers") { ?> active <?php } ?>">
                             <i class="fa fa-cogs"></i>
                             <span>Administrateur</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="<?= URL ?>admin/consultants">Consultants</a></li>
-                            <li><a href="<?= URL ?>admin/users">Utilisateurs</a></li>
+                            <li class="<?php if ($_SESSION['page'] == "gestionConsultants") { ?> active <?php } ?>"><a href="<?= URL ?>gestionConsultants">Consultants</a></li>
+                            <li class="<?php if ($_SESSION['page'] == "gestionUsers") { ?> active <?php } ?>"><a href="<?= URL ?>gestionUsers">Utilisateurs</a></li>
                         </ul>
                     </li>
                 <?php } ?>
                 <?php if (mon_grade() != "Recruteur") { ?>
                     <li class="mt">
-                        <a href="<?= URL ?>recrutement/offres" class="<?php if ($_SESSION['page'] == "recrutement/offres") { ?> active <?php } ?>">
+                        <a href="<?= URL ?>offresDispo" class="<?php if ($_SESSION['page'] == "offresDispo") { ?> active <?php } ?>">
                             <span>Les Offres</span>
                         </a>
                     </li>
                 <?php } else { ?>
                     <li class="mt">
-                        <a href="<?= URL ?>recrutement/annonces" class="<?php if ($_SESSION['page'] == "recrutement/annonces") { ?> active <?php } ?>">
+                        <a href="<?= URL ?>annoncesDepose" class="<?php if ($_SESSION['page'] == "annoncesDepose") { ?> active <?php } ?>">
                             <span>Mes Annonces</span>
                         </a>
                     </li>

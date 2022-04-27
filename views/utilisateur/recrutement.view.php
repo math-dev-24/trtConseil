@@ -1,4 +1,3 @@
-
 <table class="table table-hover table-primary text-center">
     <tr>
         <td>Intitulé :</td>
@@ -32,5 +31,5 @@
 </table>
 
 <div>
-    <a href="<?= URL ?>recrutement/annonces/add" class="btn btn-success w-100 m-auto">Ajoutez</a>
+    <a href="<?= URL ?>deposerAnnonce" class="btn btn-success w-100 m-auto">Ajoutez</a>
 </div>

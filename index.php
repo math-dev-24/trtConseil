@@ -155,18 +155,35 @@ try {
 					header('location: '.URL."accueil");
 				}
 			break;
+			case "offresDispo":
+				if(est_connecter() && mon_grade() != "Recruteur"){
+					$_SESSION['page'] = "offresDispo";
+					$userController->afficher_all_offre_valide();
+				}else{
+					Toolbox::ajouterMessageAlerte("droit requis", Toolbox::COULEUR_ORANGE);
+					header("location: " . URL . "accueil");
+				}
+			break;
+			case "annoncesDepose":
+				if (est_connecter() && mon_grade() != "Candidat") {
+					$_SESSION['page'] = "annoncesDepose";
+					$userController->afficher_page_recrutement();
+				}else{
+					Toolbox::ajouterMessageAlerte("Droit requis", Toolbox::COULEUR_ORANGE);
+					header("location: " . URL . "accueil");
+				}
+			break;
+			case "deposerAnnonce":
+				$userController->afficher_page_add_recrutement();
+			break;
+
+
 			case "recrutement" :
 				if(isset($url['1']) && !isset($url['2'])){
-					if(dataSecure($url["1"]) == "annonces"){
-						$userController->afficher_page_recrutement();
-					}else if(dataSecure($url["1"]) == "offres"){
-						$userController->afficher_all_offre_valide();
-					}
+
 				}else{
 					if(isset($url['2'])){
-						if($url['2'] == "add"){
-							$userController->afficher_page_add_recrutement();
-						}else if($url['2'] == "addr"){
+						if($url['2'] == "addr"){
 							if(empty($_POST['intitule']) || empty($_POST['lieuDT']) || empty($_POST['description'])){
 								Toolbox::ajouterMessageAlerte("Donnée(s) d'entrée(s) manquante(s)",Toolbox::COULEUR_ORANGE);
 								header("location: ".URL."recrutement/annonces/add");
@@ -184,72 +201,101 @@ try {
 					}
 				}
 			break;
-			case "admin":
-				if (!est_connecter() || $_SESSION['grade'] != "Administrateur") {
+			
+			case "gestionUsers" :
+				if(!est_connecter() && mon_grade() != "Administrateur"){
 					Toolbox::ajouterMessageAlerte("Droit Admin requis", Toolbox::COULEUR_ROUGE);
-					header('location: ' . URL . "acceuil");
+					header('location: ' . URL . "accueil");
+				}else{
+					$_SESSION['page'] = "gestionUsers";
+					if (empty($url[1])) {
+						$adminController->goUsers();
+					} else {
+						if ($url[1] == "supprimer") {
+							$adminController->supprimer_user($url['2']);
+						}
+					}
+				}
+			break;
+			case "gestionConsultants":
+				if(!est_connecter() && mon_grade() != "Administrateur"){
+					Toolbox::ajouterMessageAlerte("Droit Admin requis", Toolbox::COULEUR_ROUGE);
+					header('location: ' . URL . "accueil");
+				}else{
+					$_SESSION['page'] = "gestionConsultants";
+					$adminController->goConsultants();
+				}
+			break;
+			case "ajoutConsultant":
+				if (!est_connecter() && mon_grade() != "Administrateur") {
+					Toolbox::ajouterMessageAlerte("Droit Admin requis", Toolbox::COULEUR_ROUGE);
+					header('location: ' . URL . "accueil");
 				} else {
-					switch ($url[1]) {
-						case "consultants":
-							if(isset($url[2])){
-								$adminController->pageAjouterConsultant();
-							}else{
-								$adminController->goConsultants();
-							}
-						break;
-						case "addConsultant":
-							if (empty($_POST['emailConsultant']) || empty($_POST['passwordTempoConsultant']) || empty($_POST['nomConsultant']) || empty($_POST['prenomConsultant'])) {
-								Toolbox::ajouterMessageAlerte("Donnée(s) manquante(s)", Toolbox::COULEUR_ORANGE);
-								header('location: ' . URL . "admin/consultants");
-							} else {
-								if(verification_mail($_POST['emailConsultant'])){
-									$nom		= dataSecure($_POST['nomConsultant']);
-									$prenom		= dataSecure($_POST['prenomConsultant']);
-									$email 		= dataSecure($_POST['emailConsultant']);
-									$pass  = cryptageMdp(dataSecure($_POST['passwordTempoConsultant']));
-									$adminController->validation_inscription_consultant($nom, $prenom, $email, $pass);
-								}else{
-									Toolbox::ajouterMessageAlerte("Veuillez rentrer un email valide !",Toolbox::COULEUR_ORANGE);
-									header("location: ".URL. "admin/ajouterConsultant");
-								}
-							}
-						break;
-						case "approuver":
-							if(empty($_POST['email'])){
-								header('location: '.URL."admin/users");
-							}else{
-								$email = dataSecure($_POST['email']);
-								$adminController->approuver_utilisateur($email);
-							}
-						break;
-						case "deleteConsultant" :
-							$adminController->delete_consultant($url[2]);
-						break;
-						case "users":
-							if(empty($url[2])){
-								$adminController->goUsers();
-							}else{
-								if($url[2] == "supprimer"){
-									$adminController->supprimer_user($url['3']);
-								}
-							}
-						break;
-						case "grade":
-							if(isset($_POST['grade']) && isset($url[2])){
-							$adminController->modifier_type(dataSecure($_POST['grade']), dataSecure($url[2]));
-							}else{
-								Toolbox::ajouterMessageAlerte("problèmes survenue" , Toolbox::COULEUR_ORANGE);
-								header('location: '.URL."admin/users");
-							}
-						break;
-						default:
-							$userController->afficherPageNotFound();
+					$_SESSION['page'] = "gestionConsultants";
+					$adminController->pageAjouterConsultant();
+				}
+			break;
+
+			case "addConsultant":
+				if (!est_connecter() && mon_grade() != "Administrateur") {
+					Toolbox::ajouterMessageAlerte("Droit Admin requis", Toolbox::COULEUR_ROUGE);
+					header('location: ' . URL . "accueil");
+				} else {
+					if (empty($_POST['emailConsultant']) || empty($_POST['passwordTempoConsultant']) || empty($_POST['nomConsultant']) || empty($_POST['prenomConsultant'])) {
+						Toolbox::ajouterMessageAlerte("Donnée(s) manquante(s)", Toolbox::COULEUR_ORANGE);
+						header('location: ' . URL . "admin/consultants");
+					} else {
+						if (verification_mail($_POST['emailConsultant'])) {
+							$nom		= dataSecure($_POST['nomConsultant']);
+							$prenom		= dataSecure($_POST['prenomConsultant']);
+							$email 		= dataSecure($_POST['emailConsultant']);
+							$pass  = cryptageMdp(dataSecure($_POST['passwordTempoConsultant']));
+							$adminController->validation_inscription_consultant($nom, $prenom, $email, $pass);
+						} else {
+							Toolbox::ajouterMessageAlerte("Veuillez rentrer un email valide !", Toolbox::COULEUR_ORANGE);
+							header("location: " . URL . "admin/ajouterConsultant");
+						}
 					}
 				}
 				break;
 
-
-
+			case "admin":
+				if(mon_grade() == "Administrateur"){
+					switch ($url[1]) {
+						case "consultants":
+							if (isset($url[2])) {
+								$adminController->pageAjouterConsultant();
+							} else {
+								$adminController->goConsultants();
+							}
+							break;
+						case "approuver":
+							if (empty($_POST['email'])) {
+								header('location: ' . URL . "gestionUsers");
+							} else {
+								$email = dataSecure($_POST['email']);
+								$adminController->approuver_utilisateur($email);
+							}
+							break;
+						case "deleteConsultant":
+							$adminController->delete_consultant($url[2]);
+							break;
+						case "grade":
+							if (isset($_POST['grade']) && isset($url[2])) {
+								$adminController->modifier_type(dataSecure($_POST['grade']), dataSecure($url[2]));
+							} else {
+								Toolbox::ajouterMessageAlerte("problèmes survenue", Toolbox::COULEUR_ORANGE);
+								header('location: ' . URL . "admin/users");
+							}
+							break;
+						default:
+							$userController->afficherPageNotFound();
+					}
+				}else{
+					Toolbox::ajouterMessageAlerte("Droit Admin requis", Toolbox::COULEUR_ROUGE);
+					header('location: ' . URL . "accueil");
+				}
+				break;
 
 			default:
 				$userController->afficherPageNotFound();
