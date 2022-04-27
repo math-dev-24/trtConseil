@@ -1,9 +1,3 @@
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item active">Offre disponible</li>
-</ol>
-
-
 <div class="d-flex flex-column w-100">
     <?php foreach ($offreValide as $offre) {
 

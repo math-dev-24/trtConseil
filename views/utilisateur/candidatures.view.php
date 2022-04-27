@@ -1,9 +1,3 @@
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item active">Candidatures</li>
-</ol>
-
-
 <table class="table table-hover text-center m-auto table-light">
     <tr>
         <th>Postulant :</th>

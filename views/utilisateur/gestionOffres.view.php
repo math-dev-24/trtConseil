@@ -1,9 +1,3 @@
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item active">Gestion des offres</li>
-</ol>
-
-<hr>
 <h6>Non approuvées :</h6>
 <table class="table table-hover table-light text-center m-auto">
     <tr>

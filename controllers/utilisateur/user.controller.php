@@ -113,7 +113,7 @@ class UtilisateurController extends MainController{
             Toolbox::ajouterMessageAlerte("Candidature approuvé", Toolbox::COULEUR_VERTE);
             header('location: '.URL."candidatures");
         }else{
-            Toolbox::ajouterMessageAlerte("Erreur lors de l'approbation".$emailP.$idOffre,Toolbox::COULEUR_ORANGE);
+            Toolbox::ajouterMessageAlerte("Erreur lors de l'approbation",Toolbox::COULEUR_ORANGE);
             header("location: ".URL."candidatures");
         }
     }

@@ -1,9 +1,3 @@
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item active">Vos annonces</li>
-</ol>
-
-
 
 <table class="table table-hover table-primary text-center">
     <tr>

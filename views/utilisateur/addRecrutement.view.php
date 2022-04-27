@@ -1,10 +1,3 @@
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="<?= URL ?>accueil">Accueil</a></li>
-    <li class="breadcrumb-item"><a href="<?= URL ?>recrutement/annonces">Vos annonces</a></li>
-    <li class="breadcrumb-item active">Ajouter une annonce</li>
-</ol>
-
-
 <form action="<?= URL ?>recrutement/annonces/addr" method="POST">
     <table class="table table-hover table-primary">
         <tr>
