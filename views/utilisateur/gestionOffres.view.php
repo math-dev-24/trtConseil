@@ -15,7 +15,7 @@
             <td><?= $nonApp['description'] ?></td>
             <td>
                 <form action="<?= URL ?>gestionOffres/<?= $nonApp['0'] ?>">
-                    <button class="btn btn-info">Ok</button>
+                    <button class="btn btn_info">Ok</button>
                 </form>
             </td>
         </tr>
@@ -23,12 +23,12 @@
 </table>
 <hr>
 <h6>Approuvées :</h6>
-<table class="table table-hover table-light text-center m-auto">
+<table>
     <tr>
-        <th scope="col">Intitulé :</th>
-        <th scope="col">Recruteur :</th>
-        <th scope="col">Lieu de travail : </th>
-        <th scope="col">Description :</th>
+        <th>Intitulé :</th>
+        <th>Recruteur :</th>
+        <th>Lieu de travail : </th>
+        <th>Description :</th>
     </tr>
     <?php foreach ($Approuver as $App) { ?>
         <tr>

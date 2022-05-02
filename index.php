@@ -137,7 +137,7 @@ try {
 								$information = pathinfo($_FILES['cv']['name']);
 								$extension = $information['extension'];
 								if($extension == "pdf"){
-									$adresse ="cv/CV-".$_SESSION['nom']."-".$_SESSION['prenom']."-".time().".pdf";
+									$adresse ="public/cv/CV-".$_SESSION['nom']."-".$_SESSION['prenom']."-".time().".pdf";
 									move_uploaded_file($_FILES['cv']['tmp_name'],$adresse);
 									$userController->ajouter_cv($adresse);
 								}else{
