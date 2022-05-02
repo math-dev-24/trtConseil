@@ -59,7 +59,7 @@
                     <li class="sub-menu">
                         <a href="javascript:;" class="<?php if ($_SESSION['page'] == "gestionConsultants" || $_SESSION['page'] == "gestionUsers") { ?> active <?php } ?>">
                             <i class="fa fa-cogs"></i>
-                            <span>Administrateur</span>
+                            <span>Admin</span>
                         </a>
                         <ul class="sub">
                             <li class="<?php if ($_SESSION['page'] == "gestionConsultants") { ?> active <?php } ?>"><a href="<?= URL ?>gestionConsultants">Consultants</a></li>
