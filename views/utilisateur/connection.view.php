@@ -9,7 +9,7 @@
             <td><input type="password" name="pass" id="pass"></td>
         </tr>
     </table>
-    <button type="submit" class="btn btn_primary">Se connecter</button>
+    <button type="submit" class="btn btn-primary m-auto w-50 d-block">Se connecter</button>
 
 
 </form>

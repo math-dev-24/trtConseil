@@ -110,9 +110,9 @@ class OffresManager extends Bdd
         return $data;
     }
     public function supprimerPostulant($idOffre){
-        $req = "DELETE FROM postulant WHERE idOffreP = :idOffre";
+        $req = "DELETE FROM postulant WHERE idOffreP = :idOffreP";
         $stmt = $this->getBdd()->prepare($req);
-        $stmt->bindValue(':idOffre',$idOffre,PDO::PARAM_INT);
+        $stmt->bindValue(':idOffreP',$idOffre,PDO::PARAM_INT);
         $stmt->execute();
         $estSupprimer = ($stmt->rowCount() > 0);
         $stmt->closeCursor();

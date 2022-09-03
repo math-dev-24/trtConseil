@@ -2,7 +2,7 @@
     <?php foreach ($offreValide as $offre) {
 
     ?>
-        <div class="card bg-secondary mb-3 w-100">
+        <div class="card text-white bg-secondary mb-3 w-75 m-auto">
             <div class="card-header"><?= $offre['nomEntreprise'] ?></div>
             <div class="card-body">
                 <h4 class="card-title"><?= $offre['intitule'] ?></h4>
@@ -26,9 +26,9 @@
                     </form>
 
                     <?php } else {
-                        if(mon_grade() == "Candidat"){
+                    if (mon_grade() == "Candidat") {
                         if ($isValide) {
-                        ?>
+                    ?>
                             <button class="disabled btn btn-primary m-2">Candidatures pris en compte et approuver</button>
                         <?php } else { ?>
                             <button class="disabled btn btn-primary m-2">Candidatures pris en compte et non approuver pour l'instant</button>
@@ -36,8 +36,9 @@
                         <form action="<?= URL ?>recrutement/retrait/<?= $offre['0'] ?>">
                             <button class="btn btn-outline-danger m-2">Ne plus postuler</button>
                         </form>
-                    <?php
-                    } } ?>
+                <?php
+                    }
+                } ?>
             </div>
         </div>
     <?php  } ?>

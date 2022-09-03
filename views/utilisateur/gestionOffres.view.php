@@ -15,7 +15,7 @@
             <td><?= $nonApp['description'] ?></td>
             <td>
                 <form action="<?= URL ?>gestionOffres/<?= $nonApp['0'] ?>">
-                    <button class="btn btn_info">Ok</button>
+                    <button class="btn btn-info">Ok</button>
                 </form>
             </td>
         </tr>
@@ -23,7 +23,7 @@
 </table>
 <hr>
 <h6>Approuvées :</h6>
-<table>
+<table class="table table-hover table-light text-center m-auto">
     <tr>
         <th>Intitulé :</th>
         <th>Recruteur :</th>

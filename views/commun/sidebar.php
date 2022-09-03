@@ -1,8 +1,8 @@
 <?php if (est_connecter()) { ?>
     <aside>
-        <div id="sidebar">
+        <div class="d-flex flex-column">
             <ul class="sidebar-menu" id="nav-accordion">
-                <p class="centered"><a href="<?= URL ?>profil"><img src="https://randomuser.me/api/portraits/men/32.jpg" class="img_rounded_50" width="80"></a></p>
+                <p class="centered"><a href="<?= URL ?>profil"><img src="https://randomuser.me/api/portraits/men/32.jpg" class="img img_rounded_50" width="80"></a></p>
                 <h5 class="centered"> <?= $_SESSION['nom'] . " " . $_SESSION['prenom'] ?></h5>
                 <li class="mt">
                     <a href="<?= URL ?>profil" class="<?php if ($_SESSION['page'] == "profil") { ?> active <?php } ?>">
@@ -48,7 +48,6 @@
                         </a>
                     </li>
                 <?php } ?>
-
             </ul>
         </div>
     </aside>

@@ -100,7 +100,7 @@ class UsersManager extends Bdd{
         return $estModifier;
     }
 
-    public function inscriptionUser($nom, $prenom, $mail, $pass, $idType){
+    public function inscriptionUser(string $nom,string $prenom,string $mail,string $pass,int $idType){
         $req = "INSERT INTO user(`email`, `password`,`approuver`,`idType`, `nom` , `prenom`) VALUES (:mail, :password, :approuver, :idType, :nom, :prenom)";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(":mail", $mail, PDO::PARAM_STR_CHAR);

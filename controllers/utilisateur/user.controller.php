@@ -85,7 +85,7 @@ class UtilisateurController extends MainController{
         ];
         $this->genererPage($data_page);
     }
-    public function ajouter_annonce($intitule , $lieuDeTravail , $description){
+    public function ajouter_annonce(string $intitule ,string $lieuDeTravail ,string $description){
         if($this->offreManager->add_offre($intitule, $lieuDeTravail , $description)){
             Toolbox::ajouterMessageAlerte("Annonce Ajoutée",Toolbox::COULEUR_VERTE);
             header('location: '.URL. "annoncesDepose");
@@ -102,13 +102,13 @@ class UtilisateurController extends MainController{
         ];
         $this->genererPage($data_page);
     }
-    public function ne_plus_postuler($idOffre){
+    public function ne_plus_postuler(int $idOffre){
         if($this->offreManager->supprimerPostulant($idOffre)){
             Toolbox::ajouterMessageAlerte("Désistement, effectué", Toolbox::COULEUR_VERTE);
             header('location: ' . URL . "recrutement/offres");
         }
     }
-    public function approuver_candidature($emailP , $idOffre){
+    public function approuver_candidature(string $emailP ,int $idOffre){
         if($this->offreManager->approuverCandidature($emailP, $idOffre)){
             Toolbox::ajouterMessageAlerte("Candidature approuvé", Toolbox::COULEUR_VERTE);
             header('location: '.URL."candidatures");
@@ -117,7 +117,7 @@ class UtilisateurController extends MainController{
             header("location: ".URL."candidatures");
         }
     }
-    public function postuler_offre($idOffre)
+    public function postuler_offre(int $idOffre)
     {
         if($this->offreManager->postuler($_SESSION['email'], $idOffre)){
             Toolbox::ajouterMessageAlerte("Vous venez de postuler !", Toolbox::COULEUR_VERTE);
@@ -127,7 +127,7 @@ class UtilisateurController extends MainController{
             header('location: '.URL."recrutement/offres");
         }
     }
-    public function approuver_offre($id){
+    public function approuver_offre(int $id){
         if($this->offreManager->approuver_offre_by_id($id)){
             Toolbox::ajouterMessageAlerte("Offre approuvé",Toolbox::COULEUR_VERTE);
             header("location: " . URL . "gestionOffres");
@@ -136,7 +136,7 @@ class UtilisateurController extends MainController{
             header("location: ".URL."gestionOffres");
         }
     }
-    public function ajouter_cv($adresse){
+    public function ajouter_cv(string $adresse){
         $user = $this->utilisateurManager->getInformationUser($_SESSION['email']);
         if($user['cv'] != ""){
             $ancienFichier = $user['cv'];
@@ -170,7 +170,7 @@ class UtilisateurController extends MainController{
         }
     }
 
-    public function validation_connection($mail , $password ){
+    public function validation_connection(string $mail , string $password ){
         if($this->utilisateurManager->verifCombinaison($mail,$password)){
             $utilisateurData = $this->utilisateurManager->getInformationUser($mail);
             if($utilisateurData['approuver'] == 1){
@@ -193,7 +193,7 @@ class UtilisateurController extends MainController{
 
     }
 
-    public function validation_inscription($nom, $prenom, $mail , $pass, $type){
+    public function validation_inscription(string $nom, string $prenom, string $mail , string $pass, int $type){
         if ($this->utilisateurManager->verifEmailDispo($mail)){
             if ($this->utilisateurManager->inscriptionUser($nom, $prenom, $mail, $pass, $type)) {
                 Toolbox::ajouterMessageAlerte("Félicitation attendez qu'un admin vous valide ! ", Toolbox::COULEUR_VERTE);

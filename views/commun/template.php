@@ -7,26 +7,24 @@
 
     <div class="d_flex flex_column w_100">
         <?php require "./views/commun/header.php" ?>
-        <hr>
-        <div class="d_flex flex_fill justify_content_start">
+        <div class="d-flex flex-fill justify-content-start mt-4">
             <?php require "./views/commun/sidebar.php" ?>
-            <div class=" d_flex flex_fill flex_column align_items_center pt_10">
+            <div class=" d-flex flex-fill flex-column align-items-center pt-2">
                 <?php
                 if (!empty($_SESSION['alert'])) {
                     foreach ($_SESSION['alert'] as $alert) {
-                        echo "<div class='alert " . $alert['type'] . " m_10' role='alert'>
+                        echo "<div class='alert " . $alert['type'] . " m-3 alert alert-dismissible container' role='alert'>
                         " . $alert['message'] . "
                     </div>";
                     }
                     unset($_SESSION['alert']);
                 }
                 ?>
-                <div class="mt_20">
+                <div class="container">
                     <?= $page_content ?>
                 </div>
             </div>
         </div>
-        <hr>
         <?php require "./views/commun/footer.php" ?>
     </div>
 
