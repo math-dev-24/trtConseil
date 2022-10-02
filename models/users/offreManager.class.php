@@ -5,8 +5,6 @@ require_once "./models/bdd.php";
 
 class OffresManager extends Bdd
 {
-    private $offre;
-
     public function add_offre($intitule , $lieuDeTravail, $description){
         $req ="INSERT INTO offre(`intitule`,`emailUser`, `lieuDeTravail`,`description`,`approuverO`) VALUES (:intitule, :emailUser, :lieuDT, :description, :approuver)";
         $stmt = $this->getBdd()->prepare($req);
@@ -33,7 +31,7 @@ class OffresManager extends Bdd
     }
     public function getNonApprouver()
     {
-        $req = "SELECT * FROM offre INNER JOIN user ON offre.emailUser = user.email  WHERE offre.approuverO = 0";
+        $req = "SELECT * FROM offre INNER JOIN users u ON offre.emailUser = u.email  WHERE offre.approuverO = 0";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->execute();
         $data = $stmt->fetchAll();
@@ -42,7 +40,7 @@ class OffresManager extends Bdd
     }
     public function getAppourver()
     {
-        $req = "SELECT * FROM offre INNER JOIN user ON offre.emailUser = user.email  WHERE offre.approuverO = 1";
+        $req = "SELECT * FROM offre INNER JOIN users u ON offre.emailUser = u.email  WHERE offre.approuverO = 1";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->execute();
         $data = $stmt->fetchAll();
@@ -59,7 +57,7 @@ class OffresManager extends Bdd
         return $estModifier;
     }
     public function getOffreValide(){
-        $req = "SELECT * FROM offre INNER JOIN user ON offre.emailUser = user.email WHERE offre.approuverO = 1";
+        $req = "SELECT * FROM offre INNER JOIN users u ON offre.emailUser = u.email WHERE offre.approuverO = 1";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->execute();
         $data = $stmt->fetchAll();
@@ -68,7 +66,7 @@ class OffresManager extends Bdd
     }
 
     public function postuler($email , $idOffre){
-        $req = "INSERT INTO postulant(`idOffre`,`emailP`,`approuverP`) VALUES(:idOffre, :emailP, :approuverP)";
+        $req = "INSERT INTO postulant(`idOffreP`,`emailP`,`approuverP`) VALUES(:idOffre, :emailP, :approuverP)";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(":idOffre", $idOffre, PDO::PARAM_INT);
         $stmt->bindValue(':emailP', $email, PDO::PARAM_STR);
@@ -80,7 +78,7 @@ class OffresManager extends Bdd
     }
     public function getCandidatures()
     {
-        $req = "SELECT * FROM postulant INNER JOIN offre ON postulant.idOffreP = offre.id INNER JOIN user ON offre.emailUser = user.email";
+        $req = "SELECT * FROM postulant INNER JOIN offre ON postulant.idOffreP = offre.id INNER JOIN users u ON offre.emailUser = u.email";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->execute();   
         $data = $stmt->fetchAll();

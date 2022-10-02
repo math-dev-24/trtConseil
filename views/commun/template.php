@@ -8,7 +8,6 @@
     <div class="d_flex flex_column w_100">
         <?php require "./views/commun/header.php" ?>
         <div class="d-flex flex-fill justify-content-start mt-4">
-            <?php require "./views/commun/sidebar.php" ?>
             <div class=" d-flex flex-fill flex-column align-items-center pt-2">
                 <?php
                 if (!empty($_SESSION['alert'])) {

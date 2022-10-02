@@ -32,15 +32,6 @@ class AdministrateurController extends MainController
         ];
         $this->genererPage($data_page);
     }
-    public function goConsultants()
-    {
-        $data_page = [
-            "consultants" => $this->utilisateurManager->getByGrade(3),
-            "view" =>"./views/admin/consultant.view.php",
-            "template" => "./views/commun/template.php"
-        ];
-        $this->genererPage($data_page);
-    }
 
     public function delete_consultant($id){
         $this->utilisateurManager->delete_by_id($id);

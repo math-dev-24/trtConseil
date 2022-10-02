@@ -171,6 +171,7 @@ class UtilisateurController extends MainController{
     }
 
     public function validation_connection(string $mail , string $password ){
+
         if($this->utilisateurManager->verifCombinaison($mail,$password)){
             $utilisateurData = $this->utilisateurManager->getInformationUser($mail);
             if($utilisateurData['approuver'] == 1){

@@ -1,4 +1,4 @@
-<table class="table table-hover table-primary text-center">
+<table class="table table-hover table-light text-center">
     <tr>
         <td>Intitulé :</td>
         <td>Lieu de travail :</td>

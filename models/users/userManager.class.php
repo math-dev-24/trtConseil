@@ -5,10 +5,6 @@ require_once "./models/users/type.class.php";
 require_once "./models/bdd.php";
 
 class UsersManager extends Bdd{
-    private $user;
-    private $type;
-
-    
 
     public function verifEmailDispo($mail){
         $utilisateur = $this->getInformationUser($mail);
@@ -24,7 +20,7 @@ class UsersManager extends Bdd{
     }
     public function update_cv($adresse)
     {
-        $req = "UPDATE user SET cv = :cv WHERE email = :email";
+        $req = "UPDATE users SET cv = :cv WHERE email = :email";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':cv',$adresse,PDO::PARAM_STR);
         $stmt->bindValue(':email',$_SESSION['email'],PDO::PARAM_STR);
@@ -33,7 +29,7 @@ class UsersManager extends Bdd{
     }
 
     public function getByGrade($idType){
-        $req = "SELECT * FROM user WHERE idType = :idType";
+        $req = "SELECT * FROM users WHERE idType = :idType";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':idType', $idType,PDO::PARAM_INT);
         $stmt->execute();
@@ -43,7 +39,7 @@ class UsersManager extends Bdd{
     }
 
     public function getAllUsers(){
-        $req = "SELECT * FROM user LEFT JOIN type ON user.idType = type.id";
+        $req = "SELECT * FROM users u LEFT JOIN type ON u.idType = type.id";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->execute();
         $resultat = $stmt->fetchAll();
@@ -52,7 +48,7 @@ class UsersManager extends Bdd{
     }
 
     public function getInformationUser($mail){
-        $req = "SELECT * FROM user LEFT JOIN type ON user.idType = type.id WHERE  email = :email";
+        $req = "SELECT * FROM users u LEFT JOIN type ON u.idType = type.id WHERE  u.email = :email";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email',$mail, PDO::PARAM_STR);
         $stmt->execute();
@@ -72,7 +68,7 @@ class UsersManager extends Bdd{
     }
     public function delete_by_id($id)
     {
-        $req = "DELETE FROM user WHERE id = :id";
+        $req = "DELETE FROM users u WHERE u.id = :id";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':id',$id,PDO::PARAM_INT);
         $stmt->execute();
@@ -80,7 +76,7 @@ class UsersManager extends Bdd{
     }
     public function modification_Bdd($name_item, $item, $email)
     {
-        $req = "UPDATE user SET ".$name_item." = :item WHERE email = :email";
+        $req = "UPDATE users u SET ".$name_item." = :item WHERE u.email = :email";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':item',$item);
         $stmt->bindValue(':email', $email);
@@ -91,7 +87,7 @@ class UsersManager extends Bdd{
     }
     public function approuver_by_email($email)
     {
-        $req = "UPDATE user SET approuver = 1 WHERE email = :email";
+        $req = "UPDATE users SET approuver = 1 WHERE email = :email";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
@@ -101,10 +97,10 @@ class UsersManager extends Bdd{
     }
 
     public function inscriptionUser(string $nom,string $prenom,string $mail,string $pass,int $idType){
-        $req = "INSERT INTO user(`email`, `password`,`approuver`,`idType`, `nom` , `prenom`) VALUES (:mail, :password, :approuver, :idType, :nom, :prenom)";
+        $req = "INSERT INTO users (`email`, `password`,`approuver`,`idType`, `nom` , `prenom`) VALUES (:mail, :password, :approuver, :idType, :nom, :prenom)";
         $stmt = $this->getBdd()->prepare($req);
-        $stmt->bindValue(":mail", $mail, PDO::PARAM_STR_CHAR);
-        $stmt->bindValue(":password", $pass , PDO::PARAM_STR_CHAR);
+        $stmt->bindValue(":mail", $mail, PDO::PARAM_STR);
+        $stmt->bindValue(":password", $pass , PDO::PARAM_STR);
         $stmt->bindValue(":approuver", 0 , PDO::PARAM_INT);
         $stmt->bindValue(':idType', $idType, PDO::PARAM_INT);
         $stmt->bindValue(':nom',$nom,PDO::PARAM_STR);

@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]"));
 
 require "./controllers/function.php";
@@ -9,8 +8,6 @@ require_once "./controllers/utilisateur/user.controller.php";
 require_once "./controllers/admin/admin.controller.php";
 $adminController = new AdministrateurController;
 $userController = new UtilisateurController;
-
-
 
 
 try {
@@ -215,15 +212,6 @@ try {
 							$adminController->supprimer_user($url['2']);
 						}
 					}
-				}
-			break;
-			case "gestionConsultants":
-				if(!est_connecter() && mon_grade() != "Administrateur"){
-					Toolbox::ajouterMessageAlerte("Droit Admin requis", Toolbox::COULEUR_ROUGE);
-					header('location: ' . URL . "accueil");
-				}else{
-					$_SESSION['page'] = "gestionConsultants";
-					$adminController->goConsultants();
 				}
 			break;
 			case "ajoutConsultant":
