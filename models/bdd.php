@@ -8,7 +8,7 @@ abstract class Bdd
     {
         $dbname = "recrutement";
         $identifiant = "root";
-        $password = "Warolucky24";
+        $password = "";
         $port = 3306;
         $host = "localhost";
 
